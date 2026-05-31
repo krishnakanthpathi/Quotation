@@ -1,15 +1,17 @@
 import { useCallback, useState } from 'react'
-import { FileDown } from 'lucide-react'
+import { FileDown, Lock } from 'lucide-react'
+import { AppLockScreen } from './components/AppLockScreen'
 import { PdfTemplate } from './components/PdfTemplate'
 import { QuotationForm } from './components/QuotationForm'
 import { QuotationPreview } from './components/QuotationPreview'
+import { useAppLock } from './hooks/useAppLock'
 import { useQuotationForm } from './hooks/useQuotationForm'
 import {
   downloadQuotationPdf,
   quotationPdfFilename,
 } from './utils/pdfExport'
 
-function App() {
+function QuotationApp({ onLock }: { onLock: () => void }) {
   const form = useQuotationForm()
   const [exportNode, setExportNode] = useState<HTMLDivElement | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -40,15 +42,26 @@ function App() {
         <h1 className="text-xl sm:text-2xl font-bold text-center sm:text-left">
           SVLN Quotation Generator
         </h1>
-        <button
-          type="button"
-          onClick={generatePDF}
-          disabled={isGenerating || !exportNode}
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-sm"
-        >
-          <FileDown size={20} />
-          {isGenerating ? 'Generating...' : 'Download PDF'}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onLock}
+            title="Lock app"
+            className="bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors shadow-sm"
+          >
+            <Lock size={18} />
+            Lock
+          </button>
+          <button
+            type="button"
+            onClick={generatePDF}
+            disabled={isGenerating || !exportNode}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-sm"
+          >
+            <FileDown size={20} />
+            {isGenerating ? 'Generating...' : 'Download PDF'}
+          </button>
+        </div>
       </header>
 
       <main className="flex-1 flex flex-col lg:flex-row overflow-hidden">
@@ -74,6 +87,16 @@ function App() {
       </div>
     </div>
   )
+}
+
+function App() {
+  const { unlocked, unlock, lock } = useAppLock()
+
+  if (!unlocked) {
+    return <AppLockScreen onUnlock={unlock} />
+  }
+
+  return <QuotationApp onLock={lock} />
 }
 
 export default App
