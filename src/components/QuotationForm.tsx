@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, Eraser } from 'lucide-react'
 import type { UseQuotationFormReturn } from '../hooks/useQuotationForm'
 import { computeLineItem } from '../utils/calculations'
 
@@ -26,12 +26,29 @@ function FieldLabel({
 
 const inputClass = 'w-full p-2 border border-gray-300 rounded-md'
 
+function handleClearForm(resetForm: () => void) {
+  if (window.confirm('Clear all fields and remove the saved draft?')) {
+    resetForm()
+  }
+}
+
 export function QuotationForm({ form }: QuotationFormProps) {
-  const { state, computed, updateField, updateLineItem, addLineItem, removeLineItem } =
+  const { state, computed, updateField, updateLineItem, addLineItem, removeLineItem, resetForm } =
     form
 
   return (
     <div className="space-y-8 p-6 bg-white rounded-xl shadow-sm h-full overflow-y-auto">
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={() => handleClearForm(resetForm)}
+          className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 rounded-md hover:bg-red-50 font-medium text-sm"
+        >
+          <Eraser size={16} />
+          Clear Form
+        </button>
+      </div>
+
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Quotation Details
@@ -201,6 +218,30 @@ export function QuotationForm({ form }: QuotationFormProps) {
                         />
                         Wind Shield
                       </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={item.accessoryDustCover}
+                          onChange={(e) =>
+                            updateLineItem(item.id, {
+                              accessoryDustCover: e.target.checked,
+                            })
+                          }
+                        />
+                        Dust Cover
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={item.accessoryTripodStand}
+                          onChange={(e) =>
+                            updateLineItem(item.id, {
+                              accessoryTripodStand: e.target.checked,
+                            })
+                          }
+                        />
+                        Tripod Stand
+                      </label>
                     </div>
                     <input
                       className={`${inputClass} text-sm`}
@@ -281,13 +322,13 @@ export function QuotationForm({ form }: QuotationFormProps) {
         <div className="space-y-4">
           <div>
             <FieldLabel htmlFor="totalRupeesWords">
-              Total Rupees (in words)
+              Total Rupees (in words) — auto from items total
             </FieldLabel>
             <input
               id="totalRupeesWords"
-              className={inputClass}
+              className={`${inputClass} bg-gray-100`}
+              readOnly
               value={state.totalRupeesWords}
-              onChange={(e) => updateField('totalRupeesWords', e.target.value)}
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -80,7 +80,7 @@ export const PdfTemplate = forwardRef<HTMLDivElement, PdfTemplateProps>(
           <div>GST No. : 37AMFPP7112D2Z7</div>
           <div className="pad-header-contact">
             <div>Cell : 9493203058, 9963326611</div>
-            <div className="pad-email">Email : muralikrishnapath@gmail.com</div>
+            <div className="pad-email">Email : muralikrishnapathi@gmail.com</div>
           </div>
         </div>
 

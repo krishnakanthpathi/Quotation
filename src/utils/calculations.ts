@@ -29,6 +29,8 @@ export function buildAccessoriesString(item: LineItem): string {
   if (item.accessoryExtraDisplay) parts.push('Extra Display')
   if (item.accessoryBatteryBackup) parts.push('Battery Backup')
   if (item.accessoryWindShield) parts.push('Wind Shield')
+  if (item.accessoryDustCover) parts.push('Dust Cover')
+  if (item.accessoryTripodStand) parts.push('Tripod Stand')
   if (item.accessoriesOther.trim()) parts.push(item.accessoriesOther.trim())
   return parts.join(', ')
 }
@@ -101,6 +103,8 @@ export function createEmptyLineItem(sNo: number): LineItem {
     accessoryExtraDisplay: false,
     accessoryBatteryBackup: false,
     accessoryWindShield: false,
+    accessoryDustCover: false,
+    accessoryTripodStand: false,
     accessoriesOther: '',
     quantity: 0,
     rate: 0,

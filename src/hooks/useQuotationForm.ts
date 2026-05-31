@@ -1,42 +1,42 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ComputedQuotation, LineItem, QuotationState } from '../types/quotation'
 import {
   computeLineItem,
   computeTotals,
   createEmptyLineItem,
   renumberLineItems,
-  todayIsoDate,
 } from '../utils/calculations'
-
-function createInitialState(): QuotationState {
-  return {
-    refNumber: '',
-    date: todayIsoDate(),
-    toAddress: '',
-    quotationNo: '',
-    productSubject: '',
-    lineItems: [createEmptyLineItem(1)],
-    totalRupeesWords: '',
-    salesTaxPercent: 0,
-    packingForwarding: 0,
-    installationCharges: 0,
-    validityDays: 30,
-    warranty: 'One Year',
-    paymentAdvPercent: 50,
-    paymentDeliveryPercent: 50,
-    deliveryDays: 15,
-    others: '',
-  }
-}
+import { rupeesToWords } from '../utils/numberToWords'
+import {
+  clearQuotationState,
+  createInitialState,
+  loadQuotationState,
+  saveQuotationState,
+} from '../utils/quotationStorage'
 
 export function useQuotationForm() {
-  const [state, setState] = useState<QuotationState>(createInitialState)
+  const [state, setState] = useState<QuotationState>(loadQuotationState)
+
+  useEffect(() => {
+    saveQuotationState(state)
+  }, [state])
 
   const computed = useMemo<ComputedQuotation>(() => {
     const lineItems = state.lineItems.map(computeLineItem)
     const totals = computeTotals(lineItems, state)
     return { state, lineItems, totals }
   }, [state])
+
+  const { subtotalRs, subtotalPs } = computed.totals
+
+  useEffect(() => {
+    const words = rupeesToWords(subtotalRs, subtotalPs)
+    setState((prev) =>
+      prev.totalRupeesWords === words
+        ? prev
+        : { ...prev, totalRupeesWords: words },
+    )
+  }, [subtotalRs, subtotalPs])
 
   const updateField = useCallback(
     <K extends keyof QuotationState>(key: K, value: QuotationState[K]) => {
@@ -72,6 +72,11 @@ export function useQuotationForm() {
     })
   }, [])
 
+  const resetForm = useCallback(() => {
+    clearQuotationState()
+    setState(createInitialState())
+  }, [])
+
   return {
     state,
     computed,
@@ -79,6 +84,7 @@ export function useQuotationForm() {
     updateLineItem,
     addLineItem,
     removeLineItem,
+    resetForm,
   }
 }
 

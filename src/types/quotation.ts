@@ -9,6 +9,8 @@ export interface LineItem {
   accessoryExtraDisplay: boolean
   accessoryBatteryBackup: boolean
   accessoryWindShield: boolean
+  accessoryDustCover: boolean
+  accessoryTripodStand: boolean
   accessoriesOther: string
   quantity: number
   rate: number
