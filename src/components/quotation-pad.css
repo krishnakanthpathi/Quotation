@@ -31,8 +31,14 @@
   vertical-align: top;
 }
 
-.quotation-pad .pad-header-row > div:last-child {
+.quotation-pad .pad-header-contact {
   text-align: right;
+}
+
+.quotation-pad .pad-email {
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .quotation-pad .pad-brand {
@@ -108,56 +114,24 @@
 }
 
 .quotation-pad .pad-to-row {
-  display: table;
+  display: flex;
+  gap: 8px;
   width: 100%;
   margin-bottom: 16px;
-}
-
-.quotation-pad .pad-to-block,
-.quotation-pad .pad-no-block {
-  display: table-cell;
-  vertical-align: top;
-}
-
-.quotation-pad .pad-to-block {
-  width: 58%;
-}
-
-.quotation-pad .pad-no-block {
-  width: 42%;
-  text-align: right;
+  align-items: flex-start;
 }
 
 .quotation-pad .pad-to-label {
   font-weight: 700;
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 8px;
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .quotation-pad .pad-to-content {
-  display: inline-block;
-  width: calc(100% - 32px);
+  flex: 1;
   white-space: pre-wrap;
   border-bottom: 1px dashed #9ca3af;
   min-height: 56px;
-  vertical-align: top;
-}
-
-.quotation-pad .pad-no-inner {
-  display: inline-block;
-  color: #dc2626;
-  font-weight: 700;
-  font-size: 18px;
-  text-align: right;
-}
-
-.quotation-pad .pad-no-value {
-  border-bottom: 1px dashed #f87171;
-  min-width: 100px;
-  text-align: center;
-  display: inline-block;
-  margin-left: 4px;
 }
 
 .quotation-pad .pad-subject-row {

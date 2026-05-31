@@ -78,7 +78,10 @@ export const PdfTemplate = forwardRef<HTMLDivElement, PdfTemplateProps>(
       <div ref={ref} className="quotation-pad">
         <div className="pad-header-row">
           <div>GST No. : 37AMFPP7112D2Z7</div>
-          <div>Cell : 9493203058, 9963326611</div>
+          <div className="pad-header-contact">
+            <div>Cell : 9493203058, 9963326611</div>
+            <div className="pad-email">Email : muralikrishnapath@gmail.com</div>
+          </div>
         </div>
 
         <div className="pad-brand">
@@ -112,16 +115,8 @@ export const PdfTemplate = forwardRef<HTMLDivElement, PdfTemplateProps>(
         </div>
 
         <div className="pad-to-row">
-          <div className="pad-to-block">
-            <span className="pad-to-label">To:</span>
-            <div className="pad-to-content">{state.toAddress || '\u00A0'}</div>
-          </div>
-          <div className="pad-no-block">
-            <div className="pad-no-inner">
-              <span>No.:</span>
-              <span className="pad-no-value">{state.quotationNo}</span>
-            </div>
-          </div>
+          <span className="pad-to-label">To:</span>
+          <div className="pad-to-content">{state.toAddress || '\u00A0'}</div>
         </div>
 
         <div className="pad-subject-row">
@@ -279,7 +274,7 @@ export const PdfTemplate = forwardRef<HTMLDivElement, PdfTemplateProps>(
               </td>
               <td className="pad-term-cell">
                 <span className="pad-term-label">8) Others:</span>
-                <span className="pad-term-value">{state.others} Extra</span>
+                <span className="pad-term-value">{state.others}</span>
               </td>
             </tr>
           </tbody>

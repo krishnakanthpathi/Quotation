@@ -66,15 +66,6 @@ export function QuotationForm({ form }: QuotationFormProps) {
               onChange={(e) => updateField('toAddress', e.target.value)}
             />
           </div>
-          <div>
-            <FieldLabel htmlFor="quotationNo">Quotation No</FieldLabel>
-            <input
-              id="quotationNo"
-              className={inputClass}
-              value={state.quotationNo}
-              onChange={(e) => updateField('quotationNo', e.target.value)}
-            />
-          </div>
           <div className="col-span-1 sm:col-span-2">
             <FieldLabel htmlFor="productSubject">Subject Product</FieldLabel>
             <input
@@ -88,16 +79,7 @@ export function QuotationForm({ form }: QuotationFormProps) {
       </div>
 
       <div>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-bold text-gray-800">Products</h3>
-          <button
-            type="button"
-            onClick={addLineItem}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-          >
-            <Plus size={16} /> Add Item
-          </button>
-        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">Products</h3>
 
         <div className="space-y-6">
           {state.lineItems.map((item) => {
@@ -284,6 +266,14 @@ export function QuotationForm({ form }: QuotationFormProps) {
           {computed.totals.grandTotalRs}.
           {String(computed.totals.grandTotalPs).padStart(2, '0')}
         </div>
+
+        <button
+          type="button"
+          onClick={addLineItem}
+          className="mt-4 flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        >
+          <Plus size={16} /> Add Item
+        </button>
       </div>
 
       <div>

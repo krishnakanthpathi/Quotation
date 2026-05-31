@@ -22,10 +22,7 @@ function App() {
     if (!exportNode) return
     try {
       setIsGenerating(true)
-      const filename = quotationPdfFilename(
-        form.computed.state.quotationNo,
-        form.computed.state.refNumber,
-      )
+      const filename = quotationPdfFilename(form.computed.state.refNumber)
       await downloadQuotationPdf(exportNode, filename)
     } catch (error) {
       console.error('Error generating PDF:', error)

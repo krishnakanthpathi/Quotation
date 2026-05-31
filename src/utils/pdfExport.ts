@@ -89,10 +89,7 @@ export async function downloadQuotationPdf(
   }
 }
 
-export function quotationPdfFilename(
-  quotationNo: string,
-  refNumber: string,
-): string {
-  const slug = (quotationNo || refNumber || 'draft').replace(/[^\w-]+/g, '_')
+export function quotationPdfFilename(refNumber: string): string {
+  const slug = (refNumber || 'draft').replace(/[^\w-]+/g, '_')
   return `SVLN-Quotation-${slug}.pdf`
 }
