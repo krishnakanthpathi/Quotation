@@ -7,6 +7,7 @@ Single-page web app to fill out a quotation for **SVLN WEIGHING SCALES** and dow
 - Vite + React + TypeScript
 - Tailwind CSS (form UI)
 - jsPDF + html2canvas (PDF export)
+- Google Gemini (AI auto-fill)
 
 ## Commands
 
@@ -16,7 +17,17 @@ npm run dev
 npm run build
 ```
 
-Open the dev server URL, enter quotation details on the left, preview on the right, then click **Download PDF**.
+## AI auto-fill (optional)
+
+Paste free-text quotation details and click **Auto-fill Form with AI** (uses **Google Gemini**).
+
+1. Create `.env` from `.env.example` and set your key:
+   ```bash
+   VITE_GEMINI_API_KEY=your-gemini-api-key-here
+   ```
+2. Or paste the key in the app (saved for the browser session only).
+
+Get a key from [Google AI Studio](https://aistudio.google.com/apikey). Never commit `.env` to git.
 
 ## Features
 
@@ -24,4 +35,5 @@ Open the dev server URL, enter quotation details on the left, preview on the rig
 - Auto-calculated amount (Rs/Ps) per row and table TOTAL (subtotal)
 - Grand total summary includes sales tax, packing & forwarding, and installation
 - Live A4 preview and off-screen full-size export for accurate PDF capture
-# Quotation
+- AI auto-fill from pasted text (Gemini)
+- Password lock and localStorage draft save

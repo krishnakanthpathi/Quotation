@@ -13,6 +13,8 @@ import {
   loadQuotationState,
   saveQuotationState,
 } from '../utils/quotationStorage'
+import type { AiQuotationExtract } from '../types/aiAutofill'
+import { mergeAiExtractIntoState } from '../utils/aiAutofill'
 
 export function useQuotationForm() {
   const [state, setState] = useState<QuotationState>(loadQuotationState)
@@ -77,6 +79,10 @@ export function useQuotationForm() {
     setState(createInitialState())
   }, [])
 
+  const applyAiAutofill = useCallback((extract: AiQuotationExtract) => {
+    setState((prev) => mergeAiExtractIntoState(prev, extract))
+  }, [])
+
   return {
     state,
     computed,
@@ -85,6 +91,7 @@ export function useQuotationForm() {
     addLineItem,
     removeLineItem,
     resetForm,
+    applyAiAutofill,
   }
 }
 

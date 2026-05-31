@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Plus, Trash2, Eraser } from 'lucide-react'
+import { AiAutofillPanel } from './AiAutofillPanel'
 import type { UseQuotationFormReturn } from '../hooks/useQuotationForm'
 import { computeLineItem } from '../utils/calculations'
 
@@ -48,6 +49,8 @@ export function QuotationForm({ form }: QuotationFormProps) {
           Clear Form
         </button>
       </div>
+
+      <AiAutofillPanel form={form} />
 
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
